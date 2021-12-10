@@ -1,8 +1,12 @@
 const express = require('express')
+const Joi = require("joi");
+
+const validateRequest = require("../middleware/validate-request");
 const businessRouter = express.Router()
 const controller = require('../controllers/controllers')
 const aiController = require('../controllers/addInvoice.controller')
-const {bus} = require("nodemon/lib/utils");
+// const {bus} = require("nodemon/lib/utils");
+// import {DataTypes} from "sequelize";
 
 // router.get('/', function (req, res, next) {
 //   // if the user ID is 0, skip to the next router
@@ -24,8 +28,23 @@ businessRouter.post('/bill', authenticateSchema, aiController.saveBill)
 
 function authenticateSchema(req, res, next) {
   const schema = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required()
+    id_internal_bill: Joi.number().integer().default(null),
+    id_bs: Joi.string().required(),
+    id_bs_personal_data_business: Joi.number().integer().default(2),
+    id_company: Joi.number().integer().required(),
+    bill_date: Joi.date().required(),
+    date_notification: Joi.date().required(),
+    date_transaction: Joi.date().required(),
+    date_currency: Joi.date().required(),
+    total: Joi.number().precision(2).required(),
+    with_iva: Joi.number().integer(),
+    iva_total: Joi.number().precision(2).required().default(0.00),
+    remaining_cost: Joi.number().precision(2).default(0.00),
+    id_internal_bill_status: Joi.number().integer().default(2),
+    payment_to_GG_days: Joi.number().integer().required(),
+    months_payment_expected: Joi.date().required(),
+    file_name: Joi.string().default(null),
+    note: Joi.string()
   });
   validateRequest(req, next, schema);
 }

@@ -4,7 +4,8 @@ const chalk = require("chalk");
 async function retrieveNullOrders (req, res, next) {
 
   const ordini = await db.Order.findAll({
-    where: {id_internal_bill: null}
+    where: {id_internal_bill: null},
+    order: ['id_company', 'DESC']
   })
   console.log('ordini senza fattura ', ordini)
   return res.json(ordini)
@@ -14,6 +15,7 @@ async function retrieveNullOrdersWCompany (req, res, next) {
 
   const ordiniWCompany = await db.Order.findAll({
     where: {id_internal_bill: null},
+    order: ['id_company'],
     include: {
       model: db.Company
       // as: 'Instruments'

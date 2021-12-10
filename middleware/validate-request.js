@@ -6,7 +6,7 @@ function validateRequest(req, next, schema) {
     allowUnknown: true, // ignore unknown prop
     stripUnknown: true // remove unknown props
   };
-  const { error, value } = schema.validate(req.body, options);
+  const { error, value } = schema.validate(req.body.data, options);
   if (error) {
     next(`Validation error: ${error.details.map(x => x.message).join(', ')}`);
   } else {

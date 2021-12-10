@@ -34,6 +34,7 @@ async function initialize() {
   db.User = require('../models/user.model')(sequelize);
   db.Company = require('../models/company.model')(sequelize);
   db.Order = require('../models/order.model')(sequelize);
+  db.Bill = require('../models/bill.model')
 
   db.Company.hasOne(db.Order, {
     foreignKey: {
