@@ -1,6 +1,5 @@
 const config = require('../config.json');
 const maria = require('mariadb')
-
 const { Sequelize } = require('sequelize');
 
 module.exports = db = {};
@@ -34,7 +33,7 @@ async function initialize() {
   db.User = require('../models/user.model')(sequelize);
   db.Company = require('../models/company.model')(sequelize);
   db.Order = require('../models/order.model')(sequelize);
-  db.Bill = require('../models/bill.model')
+  db.Bill = require('../models/bill.model')(sequelize)
 
   db.Company.hasOne(db.Order, {
     foreignKey: {
@@ -44,7 +43,7 @@ async function initialize() {
   });
   db.Order.belongsTo(db.Company, {foreignKey: 'id_company'});
 
-
+  db.sequelize = sequelize
   // sync all models with database
   // await sequelize.sync();
 

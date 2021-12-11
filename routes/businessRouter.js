@@ -24,7 +24,7 @@ const aiController = require('../controllers/addInvoice.controller')
 businessRouter.get('/nullOrders', aiController.retrieveNullOrders)
 businessRouter.get('/nullOrdersWC', aiController.retrieveNullOrdersWCompany)
 businessRouter.get('/companies', aiController.retrieveCompanies)
-businessRouter.post('/bill', authenticateSchema, aiController.saveBill)
+businessRouter.post('/bill', authenticateSchema, aiController.saveBill, aiController.updateOrders)
 
 function authenticateSchema(req, res, next) {
   const schema = Joi.object({
@@ -37,13 +37,13 @@ function authenticateSchema(req, res, next) {
     date_transaction: Joi.date().required(),
     date_currency: Joi.date().required(),
     total: Joi.number().precision(2).required(),
-    with_iva: Joi.number().integer(),
-    iva_total: Joi.number().precision(2).required().default(0.00),
+    with_iva: Joi.boolean().cast('number'),
+    iva_total: Joi.number().precision(2).default(0.00),
     remaining_cost: Joi.number().precision(2).default(0.00),
     id_internal_bill_status: Joi.number().integer().default(2),
     payment_to_GG_days: Joi.number().integer().required(),
     months_payment_expected: Joi.date().required(),
-    file_name: Joi.string().default(null),
+    file_name: Joi.string().default('null'),
     note: Joi.string()
   });
   validateRequest(req, next, schema);

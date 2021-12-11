@@ -19,7 +19,7 @@ function model(sequelize) {
     id_internal_bill_status:{ type: DataTypes.INTEGER},
     payment_to_GG_days:{ type: DataTypes.INTEGER, notNull: true},
     months_payment_expected:{ type: DataTypes.DATE, notNull: true},
-    file_name:{ type: DataTypes.TEXT, notNull: true},
+    file_name:{ type: DataTypes.TEXT},
     note:{ type: DataTypes.TEXT, notNull: true}
 
   };

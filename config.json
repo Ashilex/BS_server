@@ -4,7 +4,9 @@
     "port": 3306,
     "user": "alessandro",
     "password": "alex21",
-    "database": "black_skip_db"
+    "database": "black_skip_db",
+    "logQueryParameters": true
   },
   "secret": "ABCDEF$123"
+
 }
