@@ -41,11 +41,11 @@ async function saveBill (req, res, next) {
   // await newBill.save()
   try{
     await db.Bill.create(req.body.data.form)
-    const results = await db.sequelize.query('SELECT LAST_INSERT_ID();', {
+    const billId = await db.sequelize.query('SELECT LAST_INSERT_ID();', {
       type: db.sequelize.QueryTypes.SELECT
     });
-    console.log(JSON.stringify(results))
-    res.locals.ordersToUpdate = results;
+    console.log(chalk.bgRedBright(JSON.stringify(billId[0]['LAST_INSERT_ID()'])))
+    res.locals.billId = billId[0]['LAST_INSERT_ID()'];
 
     next()
     // return res.json(200)
@@ -77,7 +77,8 @@ function saveBillPromise (req, res, next) {
       console.log(err)})
 }
 
-function updateOrders(req, res, next) {
+async function updateOrders(req, res, next) {
+  await db.Order.update({id_internal_bill: res.locals.billId}, {where:{id_external_order: req.body.data.ordersToUpdate}})
   console.log('ultimo passaggio, dati da aggiornare', req.body.data.ordersToUpdate)
 }
 
