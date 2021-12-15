@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const chalk = require ('chalk');
 const { Sequelize } = require('sequelize');
+const path = require('path')
 
 
 const app = express()
@@ -24,6 +25,12 @@ const userData = {
 }
 
 app.locals.userData = userData
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 
 app.use(function (req, res, next) {
@@ -50,10 +57,12 @@ app.use(function (req, res, next) {
   });
 });
 
-app.get('/', (req, res) => {
-  if (!req.user) return res.status(401).json({ success: false, message: 'Invalid user to access it.' });
-  res.send('Welcome to the Node.js Tutorial! - ' + req.user.name);
-});
+
+
+// app.get('/', (req, res) => {
+//   if (!req.user) return res.status(401).json({ success: false, message: 'Invalid user to access it.' });
+//   res.send('Welcome to the Node.js Tutorial! - ' + req.user.name);
+// });
 
 app.use('/api/auth', routes)
 app.use('/api/business', bRoutes)
