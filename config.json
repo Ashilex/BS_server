@@ -1,6 +1,6 @@
 {
   "database": {
-    "host": "192.168.1.58",
+    "host": "192.168.0.102",
     "port": 3306,
     "user": "alessandro",
     "password": "alex21",
