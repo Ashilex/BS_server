@@ -14,7 +14,7 @@ async function initialize() {
 
   // connect to db
   // const sequelize = new Sequelize(database, user, password, { dialect: 'mariadb' });
-  const sequelize = new Sequelize('black_skip_db', 'config.database.user', 'config.database.password', {
+  const sequelize = new Sequelize('black_skip_db', config.database.user, config.database.password, {
     host: config.database.host,
     dialect: 'mariadb'
   });
