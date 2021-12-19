@@ -29,7 +29,7 @@ async function initialize() {
 
   // init models and add them to the exported db object
   // db.User = require('../users/user.model')(sequelize);
-  db.Codice = require('../models/codice.model')(sequelize);
+  // db.Codice = require('../models/codice.model')(sequelize);
   db.User = require('../models/user.model')(sequelize);
   db.Company = require('../models/company.model')(sequelize);
   db.Order = require('../models/order.model')(sequelize);

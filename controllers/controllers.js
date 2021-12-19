@@ -18,9 +18,9 @@ async function signIn(req, res, next) {
   const pwd = req.body.password
   const numero = 445
 
-  const apper = await db.Codice.findOne({where:{codice: numero}})
+  // const apper = await db.Codice.findOne({where:{codice: numero}})
   const userDb = await db.User.findOne({where: {account:user}})
-  console.log('provaaaaaaaaa', apper)
+  // console.log('provaaaaaaaaa', apper)
   console.log('provaaaaaaaaa', userDb?.dataValues.surname)
 
   retrievedUser = {
